@@ -1,6 +1,6 @@
 # 🌤️ Aether Weather App
 
-![Aether Preview](./preview.png)
+![Aether Screenshot](./screenshot.png)
 
 Aether adalah aplikasi cuaca modern, premium, dan interaktif yang dibangun dengan desain antarmuka berbasis **Glassmorphism**. Menawarkan pembaruan cuaca seketika (*real-time*), perkiraan per jam dan 5 hari ke depan, serta dukungan dwibahasa (Bilingual).
 
