@@ -40,7 +40,33 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // 1. Jalankan deteksi GPS saat pertama kali dibuka
   useEffect(() => {
+    if (navigator.geolocation) {
+      // Opsi timeout agar tidak stuck jika user mengabaikan popup
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocationQuery({
+            type: 'coords',
+            lat: position.coords.latitude,
+            lon: position.coords.longitude
+          });
+        },
+        (err) => {
+          // Jika ditolak atau error, fallback ke Jakarta
+          setLocationQuery({ type: 'city', value: 'Jakarta' });
+        },
+        { timeout: 8000 } // Tunggu maksimal 8 detik untuk jawaban user
+      );
+    } else {
+      setLocationQuery({ type: 'city', value: 'Jakarta' });
+    }
+  }, []);
+
+  // 2. Fetch data cuaca setelah locationQuery didapatkan
+  useEffect(() => {
+    if (!locationQuery) return; // Jangan load jika GPS masih proses awal
+
     const loadWeather = async () => {
       setLoading(true);
       setError(null);
